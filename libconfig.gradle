@@ -2,7 +2,8 @@ ext{
     //基础配置
     base = [
             compileSDKVersion:28,
-            targetSDKVersion:15,
+            minSDKVersion:15,
+            targetSDKVersion:28,
             versionCode:1,
             versionName:'1.0.0'
 
