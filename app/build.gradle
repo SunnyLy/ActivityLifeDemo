@@ -1,0 +1,46 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+apply from:'../libconfig.gradle'
+
+android {
+    compileSdkVersion base.compileSDKVersion
+    defaultConfig {
+        applicationId "ext.sunny.com.activitylifedemo"
+        minSdkVersion base.minSDKVersion
+        targetSdkVersion base.targetSDKVersion
+        versionCode base.versionCode
+        versionName base.versionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        print("androidx_compact版本号：${android_jetpack.androidx_appcompat}")
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "androidx.appcompat:appcompat:$android_jetpack.androidx_appcompat"
+    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    //协程
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3"
+//    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3'
+
+
+    //lifecycle
+    //livedata
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${android_jetpack.lifecycle}"
+    //viewmodel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${android_jetpack.lifecycle}"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+}

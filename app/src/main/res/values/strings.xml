@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ActivityLifeDemo</string>
+    <string name="sencondActivity">跳转第二个界面</string>
+</resources>

@@ -1,0 +1,56 @@
+@startuml
+Launcher -> Activity: 1.startActivitySafely()
+Activity -> Activity: 2.startActivity()
+Activity -> Instrumention:3.startActivityForResult()
+Instrumention -> ActivityManagerProxy:4.execStartActivity:内部采用IPC
+ActivityManagerProxy -> ActivityManagerService:5.startActivity()
+ActivityManagerService -> ActivityStack:6.startActivity()
+ActivityStack -> ActivityStack:7.startActivityMayWait()
+ActivityStack -> ActivityStack:8.startActivityLocked()
+ActivityStack -> ActivityStack:9.startActivityUnLocked()
+ActivityStack -> ActivityStack:10.resumeTopActivityLocked()
+ActivityStack ->ApplicationThreadProxy:11.startPausingLocked()
+ApplicationThreadProxy ->ApplicationThread:12.schedulePauseActivity()
+ApplicationThread -> ApplicationThread:13.schedulePauseActivity()
+ApplicationThread -> H:14.queueOrSendMessage(H为Handler)
+H -> H:15.handleMessage()
+H->ActivityThread:
+ActivityThread -> ActivityThread:16.handlePauseActivity
+ActivityThread --> ActivityManagerProxy:
+ActivityManagerProxy -> ActivityManagerProxy:17.activityPaused()
+ActivityManagerProxy -> ActivityManagerService:
+ActivityManagerService -> ActivityManagerService:18.activityPaused()
+ActivityManagerService -> ActivityStack:
+ActivityStack -> ActivityStack:19.activityPaused()
+ActivityStack -> ActivityStack:20.completePauseLocked()
+ActivityStack -> ActivityStack:21.resumeTopActivityLocked()
+ActivityStack -> ActivityStack:22..startSpecificActivityLocked()
+ActivityStack --> ActivityManagerService:
+ActivityManagerService -> ActivityManagerService:23.startProcessLocked()
+ActivityManagerService -> ActivityThread:
+ActivityThread -> ActivityThread:24.main()
+ActivityThread --> ActivityManagerProxy
+ActivityManagerProxy -> ActivityManagerProxy:25.attachApplication()
+ActivityManagerProxy -> ActivityManagerService:
+ActivityManagerService -> ActivityManagerService:26.attachApplication()
+ActivityManagerService -> ActivityManagerService:27.attachApplicationLocked()
+ActivityManagerService -> ActivityStack:
+ActivityStack -> ActivityStack:28.realStartActivityLocked()
+ActivityStack -> ApplicationThreadProxy:
+ApplicationThreadProxy -> ApplicationThreadProxy:29.scheduleLaunchActivity()
+ApplicationThreadProxy -> ApplicationThread:
+ApplicationThread -> ApplicationThread:30.scheduleLaunchActivity()
+ApplicationThread -> ActivityThread:
+ActivityThread -> ActivityThread:31.queueOrSendMessage()
+ActivityThread --> H:
+H -> H:32.handleMessage()
+H ->ActivityThread:
+ActivityThread ->ActivityThread:33.handleLaunchActivity()
+ActivityThread -> ActivityThread:34.performLaunchActivity()
+ActivityThread -> MainActivity
+MainActivity -> MainActivity:onCreate()、onStart()、onResume()....
+
+
+
+
+@enduml
