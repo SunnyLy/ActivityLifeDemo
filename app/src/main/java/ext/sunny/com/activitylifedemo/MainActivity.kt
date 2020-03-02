@@ -6,8 +6,12 @@ import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import androidx.lifecycle.*
 import ext.sunny.com.activitylifedemo.lifecycle.ActivityLifecylceObserverImpl
+import ext.sunny.com.activitylifedemo.lifecycle.TestViewModel
 
 /**
  * LifecycleOwner:
@@ -19,18 +23,29 @@ class MainActivity : AppCompatActivity() {
     private lateinit var lifecycleRegistry: LifecycleRegistry
     private lateinit var lifecycleObserver: ActivityLifecylceObserverImpl
 
+    private lateinit var nameViewModel:TestViewModel
+    private var nameLiveData:MutableLiveData<String>? = null
+
+    private lateinit var etLiveData:EditText
+    private lateinit var btnLiveData:Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
 //        lifecycleRegistry = LifecycleRegistry(this)
 //        lifecycleRegistry.currentState = Lifecycle.State.CREATED
         super.onCreate(savedInstanceState)
         printLog("MainActivity#onCreate()")
         setContentView(R.layout.activity_main)
+        etLiveData = findViewById(R.id.et_livedata)
+        btnLiveData = findViewById(R.id.btn_livedata)
         initParams()
 
     }
 
     private fun initParams() {
 
+        /**
+         * LifeCycle相关初始化
+         */
         lifecycleRegistry = lifecycle as LifecycleRegistry
         //lifecycleRegistry.addObserver(lifecycleObserver)
         lifecycleObserver = ActivityLifecylceObserverImpl()
@@ -44,6 +59,20 @@ class MainActivity : AppCompatActivity() {
 
         })
 //        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
+
+        /**
+         * LiveData与ViewModel
+         */
+        nameViewModel = TestViewModel()
+        nameLiveData = nameViewModel.getLiveData()
+        nameLiveData!!.observe(this,
+            Observer<String> { name -> findViewById<TextView>(R.id.tv_main).text = name })
+
+        btnLiveData.setOnClickListener{
+            var str = etLiveData.text.trim().toString()
+            nameViewModel.setUserName(str)
+        }
+
 
 
 
@@ -115,5 +144,7 @@ class MainActivity : AppCompatActivity() {
         var sencondAct:Intent = Intent(this,SecondActivity::class.java)
         startActivity(sencondAct)
     }
+
+    fun sendLiveData(view: View) {}
 }
 
