@@ -10,8 +10,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.*
+import ext.sunny.com.activitylifedemo.callback.INetCallback
 import ext.sunny.com.activitylifedemo.lifecycle.ActivityLifecylceObserverImpl
 import ext.sunny.com.activitylifedemo.lifecycle.TestViewModel
+import ext.sunny.com.activitylifedemo.net.okhttp.OkHttpService
+import kotlinx.android.synthetic.main.activity_second.*
 
 /**
  * LifecycleOwner:
@@ -65,8 +68,13 @@ class MainActivity : AppCompatActivity() {
          */
         nameViewModel = TestViewModel()
         nameLiveData = nameViewModel.getLiveData()
-        nameLiveData!!.observe(this,
-            Observer<String> { name -> findViewById<TextView>(R.id.tv_main).text = name })
+        nameLiveData!!.observe(this,object :Observer<String>{
+            override fun onChanged(name: String?) {
+                findViewById<TextView>(R.id.tv_main).text = name
+
+            }
+
+        })
 
         btnLiveData.setOnClickListener{
             var str = etLiveData.text.trim().toString()
@@ -146,5 +154,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun sendLiveData(view: View) {}
+    fun okHttpGet(view: View) {
+        var chapterListUrl:String = "/wxarticle/chapters/json"
+        OkHttpService.getInstance().getChaptersList(chapterListUrl,object:INetCallback<String>{
+            override fun onSuccess(result: String) {
+                runOnUiThread(){
+                    findViewById<TextView>(R.id.tv_main).text = result
+                }
+            }
+
+            override fun onError(msg: String?, errorCode: Int) {
+                runOnUiThread{
+                    findViewById<TextView>(R.id.tv_main).text = msg
+                }
+            }
+
+        })
+    }
 }
 
