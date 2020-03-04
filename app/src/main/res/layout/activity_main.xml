@@ -75,4 +75,20 @@
         app:layout_constraintTop_toBottomOf="@+id/et_livedata"
         app:layout_constraintVertical_bias="0.069" />
 
+    <Button
+        android:id="@+id/btn_retrofit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginLeft="56dp"
+        android:onClick="retrofitGet"
+        android:text="Retrofit_get请求"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_ok_get"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintStart_toEndOf="@+id/btn_ok_get"
+        app:layout_constraintTop_toTopOf="@+id/btn_ok_get"
+        app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

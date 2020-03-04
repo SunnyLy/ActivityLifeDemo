@@ -10,11 +10,20 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.*
+import com.google.gson.Gson
 import ext.sunny.com.activitylifedemo.callback.INetCallback
 import ext.sunny.com.activitylifedemo.lifecycle.ActivityLifecylceObserverImpl
 import ext.sunny.com.activitylifedemo.lifecycle.TestViewModel
+import ext.sunny.com.activitylifedemo.net.ChapterBean
 import ext.sunny.com.activitylifedemo.net.okhttp.OkHttpService
+import ext.sunny.com.activitylifedemo.net.retrofit.IChapterService
+import ext.sunny.com.activitylifedemo.net.retrofit.StringConverterFactory
 import kotlinx.android.synthetic.main.activity_second.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 /**
  * LifecycleOwner:
@@ -26,11 +35,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var lifecycleRegistry: LifecycleRegistry
     private lateinit var lifecycleObserver: ActivityLifecylceObserverImpl
 
-    private lateinit var nameViewModel:TestViewModel
-    private var nameLiveData:MutableLiveData<String>? = null
+    private lateinit var nameViewModel: TestViewModel
+    private var nameLiveData: MutableLiveData<String>? = null
 
-    private lateinit var etLiveData:EditText
-    private lateinit var btnLiveData:Button
+    private lateinit var etLiveData: EditText
+    private lateinit var btnLiveData: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
 //        lifecycleRegistry = LifecycleRegistry(this)
@@ -55,9 +64,9 @@ class MainActivity : AppCompatActivity() {
 
         lifecycle.addObserver(lifecycleObserver)
         //GenericLifecycleObserver将从Lifecycle3.0中移除
-        lifecycle.addObserver(object :GenericLifecycleObserver{
+        lifecycle.addObserver(object : GenericLifecycleObserver {
             override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-                Log.e("xxx","onStateChanged:$source,${event.name}")
+                Log.e("xxx", "onStateChanged:$source,${event.name}")
             }
 
         })
@@ -68,7 +77,7 @@ class MainActivity : AppCompatActivity() {
          */
         nameViewModel = TestViewModel()
         nameLiveData = nameViewModel.getLiveData()
-        nameLiveData!!.observe(this,object :Observer<String>{
+        nameLiveData!!.observe(this, object : Observer<String> {
             override fun onChanged(name: String?) {
                 findViewById<TextView>(R.id.tv_main).text = name
 
@@ -76,12 +85,10 @@ class MainActivity : AppCompatActivity() {
 
         })
 
-        btnLiveData.setOnClickListener{
+        btnLiveData.setOnClickListener {
             var str = etLiveData.text.trim().toString()
             nameViewModel.setUserName(str)
         }
-
-
 
 
     }
@@ -143,33 +150,70 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-    fun printLog(msg:String){
-        Log.e("ss",msg)
+    fun printLog(msg: String) {
+        Log.e("ss", msg)
     }
 
     fun jump2Sencond(view: View) {
-        var sencondAct:Intent = Intent(this,SecondActivity::class.java)
+        var sencondAct: Intent = Intent(this, SecondActivity::class.java)
         startActivity(sencondAct)
     }
 
     fun sendLiveData(view: View) {}
     fun okHttpGet(view: View) {
-        var chapterListUrl:String = "/wxarticle/chapters/json"
-        OkHttpService.getInstance().getChaptersList(chapterListUrl,object:INetCallback<String>{
+        var chapterListUrl: String = "/wxarticle/chapters/json"
+        OkHttpService.getInstance().getChaptersList(chapterListUrl, object : INetCallback<String> {
             override fun onSuccess(result: String) {
-                runOnUiThread(){
+                runOnUiThread() {
                     findViewById<TextView>(R.id.tv_main).text = result
                 }
             }
 
             override fun onError(msg: String?, errorCode: Int) {
-                runOnUiThread{
+                runOnUiThread {
                     findViewById<TextView>(R.id.tv_main).text = msg
                 }
             }
 
         })
+    }
+
+    /**
+     * retrofit请求
+     */
+    fun retrofitGet(view: View) {
+        var retrofit: Retrofit = Retrofit.Builder()
+            .baseUrl("https://www.wanandroid.com")
+            .addConverterFactory(StringConverterFactory.create())
+            .build()
+        var chapterService: IChapterService = retrofit.create(IChapterService::class.java)
+        chapterService.getChapterList().enqueue(object : Callback<String> {
+            override fun onFailure(call: Call<String>, t: Throwable) {
+
+                printLog("请求失败:${call.request().url}\n错误信息:${t.message}")
+
+            }
+
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                var request = call.request()
+                var url = request.url
+                printLog("请求连接:$url")
+
+                var code = response.code()
+                printLog("返回状态码：$code")
+
+                if (response.isSuccessful) {
+                    var data = response.body()
+                    printLog("返回的数据:$data")
+                }
+                runOnUiThread {
+                    var result = response!!.body()
+                    findViewById<TextView>(R.id.tv_main).text = response.body().toString()
+                }
+            }
+
+        })
+
     }
 }
 
