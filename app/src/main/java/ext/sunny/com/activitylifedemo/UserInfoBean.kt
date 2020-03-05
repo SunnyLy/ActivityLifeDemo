@@ -5,8 +5,16 @@ package ext.sunny.com.activitylifedemo
  * @date 2020/2/21
  * @Version V1.0.0
  */
-class UserInfoBean{
-    var userName:String=""
-    var male:Boolean = true
-    var addr:String=""
+class UserInfoBean {
+    var userName: String = ""
+    var male: Boolean = true
+    var addr: String = ""
+
+    fun setName(name: String) {
+        this.userName = name
+    }
+
+    fun getName(): String {
+        return userName
+    }
 }
