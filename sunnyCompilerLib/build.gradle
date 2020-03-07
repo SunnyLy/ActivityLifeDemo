@@ -1,0 +1,17 @@
+apply plugin: 'java-library'
+apply from: '../javalibsettings.gradle'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    compileOnly project(":sunnyAnnotationLib")
+    //Javapoet:用于自动生成代码，以免手写出错
+    implementation 'com.squareup:javapoet:1.12.1'
+    //AutoService库，Google开源，
+    // 它的作用是用来生成META-INF/services/javax.annotation.processing.Processor文件的
+    //代替使用注解处理器时，需要手动添加META-INF/services/javax.annotation.processing.Processor的不方便
+    implementation 'com.google.auto.service:auto-service:1.0-rc4'
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
