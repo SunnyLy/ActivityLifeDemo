@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'android-aspectjx'
 apply from: '../libconfig.gradle'
 
 android {
@@ -58,6 +59,9 @@ dependencies {
     kapt project(":sunnyCompilerLib")
     //添加注解的工程
     implementation project(":sunnyAnnotationLib")
+
+    //AOP工程
+//    api project(":sunnyaoplib")
 
 
     testImplementation 'junit:junit:4.12'

@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.lifecycle.*
 import com.google.gson.Gson
+import ext.sunny.com.activitylifedemo.aop.AopActivity
 import ext.sunny.com.activitylifedemo.callback.INetCallback
 import ext.sunny.com.activitylifedemo.lifecycle.ActivityLifecylceObserverImpl
 import ext.sunny.com.activitylifedemo.lifecycle.TestViewModel
@@ -214,6 +215,10 @@ class MainActivity : AppCompatActivity() {
 
         })
 
+    }
+
+    fun startAOP(view: View) {
+        startActivity(Intent(this, AopActivity::class.java))
     }
 }
 

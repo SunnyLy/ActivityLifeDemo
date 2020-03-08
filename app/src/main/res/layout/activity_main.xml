@@ -34,18 +34,6 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_main"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/btn_livedata"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="sendLiveData"
-        android:text="测试LiveData"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="@+id/et_livedata"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/et_livedata"
-        app:layout_constraintTop_toTopOf="@+id/et_livedata" />
-
     <EditText
         android:id="@+id/et_livedata"
         android:layout_width="wrap_content"
@@ -56,24 +44,10 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.267"
+        app:layout_constraintHorizontal_bias="0.292"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/btn_ok_get"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="okHttpGet"
-        android:text="OkHttpGet请求"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_livedata"
-        app:layout_constraintVertical_bias="0.069" />
+        app:layout_constraintVertical_bias="0.237" />
 
     <Button
         android:id="@+id/btn_retrofit"
@@ -86,9 +60,51 @@
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="@+id/btn_ok_get"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toEndOf="@+id/btn_ok_get"
         app:layout_constraintTop_toTopOf="@+id/btn_ok_get"
         app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/btn_livedata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="sendLiveData"
+        android:text="测试LiveData"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@+id/et_livedata"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.575"
+        app:layout_constraintStart_toEndOf="@+id/et_livedata"
+        app:layout_constraintTop_toTopOf="@+id/et_livedata"
+        app:layout_constraintVertical_bias="0.333" />
+
+    <Button
+        android:id="@+id/btn_ok_get"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="okHttpGet"
+        android:text="OkHttpGet请求"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.143"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_livedata"
+        app:layout_constraintVertical_bias="0.095" />
+
+    <Button
+        android:id="@+id/btn_aop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="startAOP"
+        android:text="测试AOP"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/et_livedata"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button"
+        app:layout_constraintVertical_bias="0.463" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,2 +1,2 @@
-include ':app', ':sunnyAnnotationLib', ':sunnyCompilerLib'
+include ':app', ':sunnyAnnotationLib', ':sunnyCompilerLib'//, ':sunnyaoplib'
 rootProject.name='ActivityLifeDemo'
