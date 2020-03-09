@@ -6,6 +6,11 @@ package ext.sunny.com.aoplib.permission
  * @date 2020/3/7
  * @Version V1.0.0
  */
-@Target(AnnotationTarget.CLASS, AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.FUNCTION)
+@Target(
+    AnnotationTarget.CLASS,
+    AnnotationTarget.TYPE,
+    AnnotationTarget.ANNOTATION_CLASS,
+    AnnotationTarget.FUNCTION
+)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class PermissionsNeeded(val permission: Array<String>, val requestCode: Int)
