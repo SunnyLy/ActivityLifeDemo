@@ -17,8 +17,8 @@ import kotlin.reflect.KClass
 class PermissionAspect {
 
     //Pointcut:方法切入点（插桩）,称作连接点（joinpoint)
-    @Pointcut("execution(@ext.sunny.com.aoplib.permission.PermissionsNeeded * *(..))")
-    fun requestPermissionMethod(/*needPermission: PermissionsNeeded*/) {
+    @Pointcut("execution(@ext.sunny.com.aoplib.permission.PermissionsNeeded * *(..)) && @annotation(needPermission)")
+    fun requestPermissionMethod(needPermission: PermissionsNeeded) {
         Log.e("aop", "AOP>>>>>找到了插入点")
 
     }
@@ -49,24 +49,24 @@ class PermissionAspect {
      }*/
 
     @SuppressLint("NewApi")
-    @Around("requestPermissionMethod()")
-    fun AfterOnCreate(joinPoint: ProceedingJoinPoint/*, needPermission: PermissionsNeeded*/) {
+    @Around("requestPermissionMethod(needPermission)")
+    fun AfterOnCreate(joinPoint: ProceedingJoinPoint, needPermission: PermissionsNeeded) {
         Log.e("xxxx", "AOP>>>>AfterOnCreate")
-
+        joinPoint.proceed()
         var permission: Array<String>? = null
-       /* var requestCode: Int = 0
+        var requestCode: Int = 0
         needPermission?.let {
             permission = it.permission
             requestCode = it.requestCode
         }
         var context = joinPoint.`this`
         context.let {
-            if (it is Activity) {
+            if (it is Activity && permission!!.isNotEmpty()) {
+                Log.e("xxxx", "AOP>>>${it.localClassName}")
                 it.requestPermissions(permission, requestCode)
             }
-        }*/
+        }
 
-        joinPoint.proceed()
 
     }
 
@@ -74,8 +74,8 @@ class PermissionAspect {
      * 指进入requestPermissionMethod()方法，正式开始执行逻辑前
      * 可以做一些初始化操作
      */
-    @Before("requestPermissionMethod()")
-    fun getPermissionBefore() {
+    @Before("requestPermissionMethod(needPermission)")
+    fun getPermissionBefore(needPermission: PermissionsNeeded) {
         Log.e("xxxx", "AOP>>>>>准备开始requestPermissionMethod()")
 
 
@@ -84,8 +84,8 @@ class PermissionAspect {
     /**
      * 执行完方法后
      */
-    @After("requestPermissionMethod()")
-    fun getPermissionAfter(/*needPermission: PermissionsNeeded*/) {
+    @After("requestPermissionMethod(needPermission)")
+    fun getPermissionAfter(needPermission: PermissionsNeeded) {
         Log.e("aop", "AOP>>>>>>pointcut后")
     }
 

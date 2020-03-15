@@ -18,7 +18,7 @@ import ext.sunny.com.aoplib.permission.PermissionsNeeded
 @PermissionsNeeded([Manifest.permission.CAMERA], requestCode = 100)
 class AopActivity : BaseActivity() {
 
-    //        @PermissionsNeeded(arrayOf(Manifest.permission.CALL_PHONE), requestCode = 101)
+    @PermissionsNeeded([Manifest.permission.CALL_PHONE], requestCode = 101)
     @UserPermissions([Manifest.permission.CAMERA], requestCode = 100)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,5 +1,7 @@
 package ext.sunny.com.aoplib.permission
 
+import androidx.annotation.NonNull
+
 /**@Annotation <p>需要的权限</p>
  * 此自定义的PointCut将作用于类，方法等
  * @Auth  Sunny
@@ -13,4 +15,4 @@ package ext.sunny.com.aoplib.permission
     AnnotationTarget.FUNCTION
 )
 @Retention(AnnotationRetention.RUNTIME)
-annotation class PermissionsNeeded(val permission: Array<String>, val requestCode: Int)
+annotation class PermissionsNeeded(@NonNull val permission: Array<String>, val requestCode: Int)
