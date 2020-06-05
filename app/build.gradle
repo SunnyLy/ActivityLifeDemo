@@ -64,9 +64,17 @@ dependencies {
     //AOP工程
     implementation project(":sunnyaoplib")
 
+    //CameraX:ERROR: Failed to resolve: androidx.camera:camera-core:1.0.0-alpha0.6
+//    implementation "androidx.camera:camera-core:${android_jetpack.camerax_version}"
+//    implementation "androidx.camera:camera-camera2:${android_jetpack.camerax_version}"
+
 
     implementation 'androidx.multidex:multidex:2.0.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    //依赖Xposed库
+    compileOnly 'de.robv.android.xposed:api:53'
+    compileOnly 'de.robv.android.xposed:api:53:sources'
 }

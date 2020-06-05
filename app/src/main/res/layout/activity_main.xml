@@ -22,8 +22,8 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="47dp"
         android:layout_marginTop="32dp"
         android:onClick="jump2Sencond"
         android:text="@string/sencondActivity"
@@ -95,16 +95,31 @@
 
     <Button
         android:id="@+id/btn_aop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="129dp"
+        android:layout_height="46dp"
         android:onClick="startAOP"
         android:text="测试AOP"
         android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/et_livedata"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintHorizontal_bias="0.446"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/button"
-        app:layout_constraintVertical_bias="0.463" />
+        app:layout_constraintVertical_bias="0.381" />
+
+    <Button
+        android:id="@+id/btn_test_camerax"
+        android:layout_width="135dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:text="测试CameraX"
+        android:textAllCaps="false"
+        android:onClick="testCameraX"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.456"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_aop"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

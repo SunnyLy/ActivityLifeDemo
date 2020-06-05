@@ -220,5 +220,9 @@ class MainActivity : AppCompatActivity() {
     fun startAOP(view: View) {
         startActivity(Intent(this, AopActivity::class.java))
     }
+
+    fun testCameraX(view: View) {
+
+    }
 }
 

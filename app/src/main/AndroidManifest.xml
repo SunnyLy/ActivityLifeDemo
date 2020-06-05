@@ -17,13 +17,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <!-- <activity android:name=".WebviewActivity">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+                 <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
+         </activity>-->
 
         <activity
             android:name=".SecondActivity"
@@ -35,11 +35,23 @@
             android:name=".aop.AopActivity"
             android:launchMode="singleTop" />
 
+        <activity android:name=".camera.CameraXActivity" />
+
         <service
             android:name=".services.PersonService"
             android:exported="false">
 
         </service>
+
+        <meta-data
+            android:name="xposedmodule"
+            android:value="true" /><!--应用为模块-->
+        <meta-data
+            android:name="xposeddescription"
+            android:value="Easy example which makes the status bar clock red and adds a smiley" /><!--模块描述-->
+        <meta-data
+            android:name="xposedminversion"
+            android:value="53" />
     </application>
 
 </manifest>
