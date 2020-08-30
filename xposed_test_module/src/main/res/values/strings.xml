@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TaskDemo</string>
+    <string name="hello_hook">Hello,sunny,Hook</string>
+</resources>

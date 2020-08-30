@@ -17,17 +17,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!-- <activity android:name=".WebviewActivity">
-             <intent-filter>
-                 <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                 <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
-         </activity>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".WebviewActivity">
+
+        </activity>
 
         <activity
             android:name=".SecondActivity"
-            android:launchMode="singleInstance">
+            android:launchMode="singleTask">
+
+        </activity>
+
+        <activity
+            android:name=".TaskAffinyActivity"
+            android:launchMode="singleTask"
+            android:allowTaskReparenting="true"
+            android:taskAffinity="com.sunny.taskaffiny">
 
         </activity>
 
@@ -45,7 +56,7 @@
 
         <meta-data
             android:name="xposedmodule"
-            android:value="true" /><!--应用为模块-->
+            android:value="false" /><!--应用为模块:true:是（将看不到图标) false:不是-->
         <meta-data
             android:name="xposeddescription"
             android:value="Easy example which makes the status bar clock red and adds a smiley" /><!--模块描述-->

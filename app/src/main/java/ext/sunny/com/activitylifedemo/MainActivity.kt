@@ -156,7 +156,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun jump2Sencond(view: View) {
-        var sencondAct: Intent = Intent(this, SecondActivity::class.java)
+//        var sencondAct: Intent = Intent(this, SecondActivity::class.java)
+        var sencondAct: Intent = Intent(this, TaskAffinyActivity::class.java)
+        sencondAct.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(sencondAct)
     }
 

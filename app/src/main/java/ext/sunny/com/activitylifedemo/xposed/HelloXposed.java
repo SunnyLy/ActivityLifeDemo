@@ -3,7 +3,9 @@ package ext.sunny.com.activitylifedemo.xposed;
 import android.content.pm.ApplicationInfo;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
+import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
+import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 /**
@@ -15,8 +17,28 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 public class HelloXposed implements IXposedHookLoadPackage {
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam lpparam) throws Throwable {
-        XposedBridge.log("=========Loaded APP:=====" + lpparam.packageName );
+        XposedBridge.log("=========Sunny:Loaded APP:=====" + lpparam.packageName);
 
-        ApplicationInfo applicationInfo = lpparam.appInfo;
+        if (lpparam.packageName.equalsIgnoreCase("shixin.aopdemo")) {
+            ApplicationInfo applicationInfo = lpparam.appInfo;
+
+            XposedHelpers.findAndHookMethod("shixin.aopdemo.activity.MainActivity", lpparam.classLoader,
+                    "testNeedLoginEL2LoginActivity", "", new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            XposedBridge.log("============Sunny:beforeHookedMethod:" + param.method.getName());
+                            // super.beforeHookedMethod(param);
+                        }
+
+                        @Override
+                        protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                            param.setThrowable(new NullPointerException("Xposed NullPointerException"));
+                        }
+                    });
+        }
+
+
     }
+
+
 }
