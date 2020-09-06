@@ -1,0 +1,55 @@
+1、XSSTEST
+   Webview.loadData("","text/html");
+   输入一段html，里面加入<script>，实现XSS
+
+2.FLAGONE Login
+   反编译apk,直接从smali里面找到flag
+
+3.FLAG TWO-ExpotedActivity
+   利用Drozer渗透工具，列出所有exported的组件，
+   然后对exported的组件进行拉起
+
+4.FLAG THREE
+  反编译apk，从smali中找到R.java里面的资源值，然后再从string.xml中找到flag
+
+5.FLAG FOUR - LOGIN2
+   反编译apk，从smali中找到Base64编码后的一般字符串，经在线解码后，得到flag
+
+6.FLAG FIVE-Exported BroadcastReceiver
+   这个直接按照toast提示，点击后退出 再重新点击，就可以拿到flag
+
+7.FLAG SIX - LOGIN3
+ encKey: Captur3Th1s  == KEY
+ encKeyTwo: {Captur3Th1sToo}
+ remoteUrl: 9EEADi^^:?;FC652?5C@:5]7:C632D6:@]4@>^DB=:E6];D@?
+ p0:  k3FElEG9lnoWbOateGhj5pX6QsXRNJKh///8Jxi8KXW7iDpk2xRxhQ==
+ v4:  qDAzl歸hc敺Bő4')u:d۔q
+ Decrypted:   k3FElEG9lnoWbOateGhj5pX6QsXRNJKh///8Jxi8KXW7iDpk2xRxhQ== -> decrypedText
+
+ p0 Base64解码 ----》  进行DES解密  -----》得到要输入的内容
+ 得用Java代码来获取解密内容，不要用网上的的解密工具，
+ Flag : {This_Isn't_Where_I_Parked_My_Car}
+
+8.FLAG SEVEN - SQLITE
+
+    directory:  c3FsaXRl  ===》Base64解码值为：sqlite
+    directoryTwo:   ZjFhZy1wYTU1   ====》Base64解码值为：f1ag-pa55
+
+
+    v3: VGhlIGZsYWcgaGFzaCE=    ====》Base64解码值为：The flag hash!
+    然后存入contentValue对象:
+    title = The flag hash!
+
+    v6: MmFiOTYzOTBjN2RiZTM0MzlkZTc0ZDBjOWIwYjE3Njc=    ====》Base64解码值为：2ab96390c7dbe3439de74d0c9b0b1767
+    然后存储contentValues对象:
+    subtitle = 2ab96390c7dbe3439de74d0c9b0b1767
+
+    接下来将ContentValue插入到sqlite数据库
+
+    v10:    VGhlIGZsYWcgaXMgYWxzbyBhIHBhc3N3b3JkIQ==   ====>Base64解码值为：The flag is also a password!
+
+
+    Hide.smali类中：
+    v0寄存器:  Q2FwdHVyM1RoMXM=   =====>Base64解码值为：Captur3Th1s  赋值给：encKey
+    V0寄存器： e0NhcHR1cjNUaDFzVG9vfQ==   ====》Base64解码值为：{Captur3Th1sToo}  赋值给：encKeyTwo
+    remoteUrl：9EEADi^^:?;FC652?5C@:5]7:C632D6:@]4@>^DB=:E6];D@?
