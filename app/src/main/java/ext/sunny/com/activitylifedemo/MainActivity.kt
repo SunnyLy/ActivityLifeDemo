@@ -1,30 +1,33 @@
 package ext.sunny.com.activitylifedemo
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.*
-import com.google.gson.Gson
 import ext.sunny.com.activitylifedemo.aop.AopActivity
 import ext.sunny.com.activitylifedemo.callback.INetCallback
 import ext.sunny.com.activitylifedemo.lifecycle.ActivityLifecylceObserverImpl
 import ext.sunny.com.activitylifedemo.lifecycle.TestViewModel
-import ext.sunny.com.activitylifedemo.net.ChapterBean
 import ext.sunny.com.activitylifedemo.net.okhttp.OkHttpService
 import ext.sunny.com.activitylifedemo.net.retrofit.IChapterService
 import ext.sunny.com.activitylifedemo.net.retrofit.StringConverterFactory
-import kotlinx.android.synthetic.main.activity_second.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import java.security.InvalidKeyException
+import java.security.NoSuchAlgorithmException
+import java.security.spec.InvalidKeySpecException
+import java.security.spec.KeySpec
+import javax.crypto.*
+import javax.crypto.spec.DESKeySpec
 
 /**
  * LifecycleOwner:
@@ -51,6 +54,45 @@ class MainActivity : AppCompatActivity() {
         etLiveData = findViewById(R.id.et_livedata)
         btnLiveData = findViewById(R.id.btn_livedata)
         initParams()
+        decrptData()
+
+    }
+
+    private fun decrptData() {
+
+//        String var1 = "Hello";
+//        String var2 = "World";
+//        boolean result = (var1 == var2);
+//        String str1 = "result="+result;
+//        String str2 = str1 + ",hello";
+//        System.out.println(str2);
+        try {
+            val localObject1 =
+                DESKeySpec("Captur3Th1s".toByteArray())
+            val secretKey = SecretKeyFactory.getInstance("DES")
+                .generateSecret(localObject1 as KeySpec)
+            val decData = Base64.decode(
+                "k3FElEG9lnoWbOateGhj5pX6QsXRNJKh///8Jxi8KXW7iDpk2xRxhQ==",
+                0
+            )
+            val localCipher = Cipher.getInstance("DES")
+            localCipher.init(2, secretKey)
+            val decryptString = String(localCipher.doFinal(decData))
+            println("解密数据：$decryptString")
+            Toast.makeText(this, "解密数据：$decryptString", Toast.LENGTH_SHORT).show()
+        } catch (e: InvalidKeySpecException) {
+            e.printStackTrace()
+        } catch (e: NoSuchAlgorithmException) {
+            e.printStackTrace()
+        } catch (e: NoSuchPaddingException) {
+            e.printStackTrace()
+        } catch (e: InvalidKeyException) {
+            e.printStackTrace()
+        } catch (e: IllegalBlockSizeException) {
+            e.printStackTrace()
+        } catch (e: BadPaddingException) {
+            e.printStackTrace()
+        }
 
     }
 
