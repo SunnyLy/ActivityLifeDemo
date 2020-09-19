@@ -1,3 +1,4 @@
+include ':aidlclient'
 include ':app', ':sunnyAnnotationLib', ':sunnyCompilerLib', ':sunnyaoplib'
 rootProject.name='ActivityLifeDemo'
 include ':xposed_test_module'

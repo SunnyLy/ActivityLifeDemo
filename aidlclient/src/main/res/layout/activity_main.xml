@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/btn_aidl_read"
+        android:layout_width="267dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="36dp"
+        android:text="读取数据"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_aidl_startservice" />
+
+    <TextView
+        android:id="@+id/tv_aidl_info"
+        android:layout_width="347dp"
+        android:layout_height="196dp"
+        android:text="结果："
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_aidl_read"
+        app:layout_constraintVertical_bias="0.113" />
+
+    <Button
+        android:id="@+id/btn_aidl_startservice"
+        android:layout_width="248dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="44dp"
+        android:text="启动服务"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

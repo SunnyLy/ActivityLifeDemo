@@ -9,6 +9,10 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
+    <permission
+        android:name="com.ext.sunny.aidl.permission"
+        android:protectionLevel="signature" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -36,8 +40,8 @@
 
         <activity
             android:name=".TaskAffinyActivity"
-            android:launchMode="singleTask"
             android:allowTaskReparenting="true"
+            android:launchMode="singleTask"
             android:taskAffinity="com.sunny.taskaffiny">
 
         </activity>
@@ -50,7 +54,11 @@
 
         <service
             android:name=".services.PersonService"
-            android:exported="false">
+            android:permission="com.ext.sunny.aidl.permission"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.ext.sunny.aidl.remoteservice" />
+            </intent-filter>
 
         </service>
 
