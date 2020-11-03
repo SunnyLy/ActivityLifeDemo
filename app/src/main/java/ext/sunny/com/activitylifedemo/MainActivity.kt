@@ -1,6 +1,7 @@
 package ext.sunny.com.activitylifedemo
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.*
 import ext.sunny.com.activitylifedemo.aop.AopActivity
 import ext.sunny.com.activitylifedemo.callback.INetCallback
+import ext.sunny.com.activitylifedemo.component.broadcast.SunnyBroadcast
 import ext.sunny.com.activitylifedemo.lifecycle.ActivityLifecylceObserverImpl
 import ext.sunny.com.activitylifedemo.lifecycle.TestViewModel
 import ext.sunny.com.activitylifedemo.net.okhttp.OkHttpService
@@ -55,6 +57,12 @@ class MainActivity : AppCompatActivity() {
         btnLiveData = findViewById(R.id.btn_livedata)
         initParams()
         decrptData()
+
+        var sunnyBroadcast = SunnyBroadcast()
+        var intentFilter = IntentFilter()
+        intentFilter.addAction(Intent.ACTION_VIEW)
+        registerReceiver(sunnyBroadcast,intentFilter,"com.ext.sunny.broadcast.PERMISSION",null)
+//        registerReceiver(sunnyBroadcast,intentFilter)
 
     }
 
@@ -266,6 +274,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun testCameraX(view: View) {
+
+    }
+
+    /**
+     * 启动后台服务，并发送广播
+     */
+    fun sendServerBroadcast(view: View) {
+        Thread(){
+            kotlin.run {
+                Thread.sleep(3000)
+                var sunnyBroadcast = Intent()
+                sunnyBroadcast.action = Intent.ACTION_VIEW
+                Log.e("sunny","SunnyBroadcastReceiver开始发送广播")
+                sendBroadcast(sunnyBroadcast,"com.ext.sunny.broadcast.PERMISSION")
+            }
+        }.start()
+
+
 
     }
 }

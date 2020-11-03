@@ -13,6 +13,12 @@
         android:name="com.ext.sunny.aidl.permission"
         android:protectionLevel="signature" />
 
+    <permission android:name="com.ext.sunny.broadcast.PERMISSION"
+        android:protectionLevel="signature"/>
+
+    <!--如果有限定广播的接收权限，当有自定义权限，但没有申明时，则会收不到广播-->
+    <uses-permission android:name="com.ext.sunny.broadcast.PERMISSION"/>
+
     <application
         android:name=".App"
         android:allowBackup="true"
